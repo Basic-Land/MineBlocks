@@ -12,7 +12,6 @@ import cz.raixo.blocks.gui.listener.GuiListener;
 import cz.raixo.blocks.gui.meta.GuiMeta;
 import cz.raixo.blocks.gui.refresher.GuiRefresher;
 import cz.raixo.blocks.gui.type.InventoryType;
-import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
@@ -36,7 +35,7 @@ public class Gui<T extends GuiFiller<T>> implements InventoryHolder {
     private static Plugin plugin;
     private static final Executor DEFAULT_EXECUTOR = Executors.newCachedThreadPool();
     private static final ItemStack AIR = new ItemStack(Material.AIR);
-    public static final LegacyComponentSerializer COMPONENT_SERIALIZER = BukkitComponentSerializer.legacy();
+    public static final LegacyComponentSerializer COMPONENT_SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
     public static final ScheduledExecutorService SCHEDULER = Executors.newSingleThreadScheduledExecutor();
     public static void enable(Plugin plugin) {
         if (Gui.plugin != null) return;

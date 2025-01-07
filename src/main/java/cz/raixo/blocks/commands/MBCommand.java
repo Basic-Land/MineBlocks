@@ -319,7 +319,7 @@ public class MBCommand extends BaseCommand {
                                 Colors.send(sender,
                                         "#2C74B3Line was updated!"
                                 );
-                                showHologram(plugin.getBukkitAudiences().sender(sender), block);
+                                showHologram(sender, block);
                                 saveBlock(block);
                             } else Colors.send(sender, "#DF2E38Line with number "+ line +" is not present!");
                         },
@@ -342,7 +342,7 @@ public class MBCommand extends BaseCommand {
                                 Colors.send(sender,
                                         "#2C74B3Line was removed!"
                                 );
-                                showHologram(plugin.getBukkitAudiences().sender(sender), block);
+                                showHologram(sender, block);
                                 saveBlock(block);
                             } else Colors.send(sender, "#DF2E38Line with number "+ line +" is not present!");
                         },
@@ -363,7 +363,7 @@ public class MBCommand extends BaseCommand {
                             Colors.send(sender,
                                     "#2C74B3Line was inserted!"
                             );
-                            showHologram(plugin.getBukkitAudiences().sender(sender), block);
+                            showHologram(sender, block);
                             saveBlock(block);
                         },
                         () -> Colors.send(sender, "#DF2E38Block with name "+ name +" was not found!")
@@ -377,7 +377,7 @@ public class MBCommand extends BaseCommand {
     public void show(CommandSender sender, @Single String name) {
         Optional.ofNullable(plugin.getBlockRegistry().get(name))
                 .ifPresentOrElse(
-                        block -> showHologram(plugin.getBukkitAudiences().sender(sender), block),
+                        block -> showHologram(sender, block),
                         () -> Colors.send(sender, "#DF2E38Block with name "+ name +" was not found!")
                 );
     }

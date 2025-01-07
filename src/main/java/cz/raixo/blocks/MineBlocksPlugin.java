@@ -17,7 +17,6 @@ import cz.raixo.blocks.menu.listener.EditListener;
 import cz.raixo.blocks.util.VersionUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -40,7 +39,6 @@ public class MineBlocksPlugin extends JavaPlugin {
     private final BlockRegistry blockRegistry = new BlockRegistry();
     private BukkitCommandManager commandManager;
     private EditListener editValuesListener;
-    private BukkitAudiences bukkitAudiences;
     private File storageFolder;
     private OfflineRewardsStorage offlineRewards;
 
@@ -49,7 +47,6 @@ public class MineBlocksPlugin extends JavaPlugin {
         storageFolder = new File(getDataFolder(), "storage");
         createFolders();
         offlineRewards = new OfflineRewardsStorage(storageFolder);
-        bukkitAudiences = BukkitAudiences.create(this);
         Gui.enable(this);
         saveDefaultConfig();
         commandManager = new BukkitCommandManager(this);

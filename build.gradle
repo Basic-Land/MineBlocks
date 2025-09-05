@@ -44,7 +44,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.36'
 
     compileOnly 'net.essentialsx:EssentialsX:2.20.1'
-    compileOnly 'com.github.decentsoftware-eu:decentholograms:2.5.3'
+    compileOnly 'com.github.decentsoftware-eu:decentholograms:2.9.7'
     compileOnly 'me.clip:placeholderapi:2.11.1'
     compileOnly 'net.luckperms:api:5.4'
     compileOnly fileTree(dir: './libs', include: '*.jar')
@@ -55,10 +55,6 @@ dependencies {
 
     implementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     runtimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
-
-test {
-    useJUnitPlatform()
 }
 
 compileJava.options.encoding = 'UTF-8'

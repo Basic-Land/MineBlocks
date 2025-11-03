@@ -33,7 +33,7 @@ public class LevelSelectMenu extends Gui<MapGuiFiller> {
 
         MapGuiFiller filler = getFiller();
 
-        List<Integer> levels = IntStream.range(1, enchantment.getMaxLevel() + 1).mapToObj(i -> i).collect(Collectors.toCollection(LinkedList::new));
+        List<Integer> levels = IntStream.range(1, enchantment.getMaxLevel() + 1).boxed().collect(Collectors.toCollection(LinkedList::new));
         
         filler.setItem('a', new GuiItemBuilder<>(filler, (Renderer<Enchantment>) (slot, ench) -> {
             int level = slot + 1;
@@ -51,13 +51,13 @@ public class LevelSelectMenu extends Gui<MapGuiFiller> {
         })
                 .withDefaultState(enchantment)
                 .withClickHandler(itemClickEvent -> {
-                    Enchantment ench = itemClickEvent.getGuiItem().getState();
-                    int level = itemClickEvent.getSlot() + 1;
+                    Enchantment ench = itemClickEvent.guiItem().getState();
+                    int level = itemClickEvent.slot() + 1;
                     if (level <= ench.getMaxLevel()) {
                         if (levels.contains(level)) {
                             levels.removeIf(i -> i == level);
                         } else levels.add(level);
-                        itemClickEvent.getGuiItem().stateUpdated();
+                        itemClickEvent.guiItem().stateUpdated();
                     }
                 })
                 .build());

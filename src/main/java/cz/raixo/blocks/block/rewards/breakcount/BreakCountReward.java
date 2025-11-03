@@ -10,13 +10,7 @@ import cz.raixo.blocks.util.range.NumberRange;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor
-public class BreakCountReward implements Reward {
-
-    private final String name;
-    private final NumberRange range;
-    private final RewardCommands<? extends RewardEntry> commands;
+public record BreakCountReward(String name, NumberRange range, RewardCommands<? extends RewardEntry> commands) implements Reward {
 
     @Override
     public RewardType getType() {

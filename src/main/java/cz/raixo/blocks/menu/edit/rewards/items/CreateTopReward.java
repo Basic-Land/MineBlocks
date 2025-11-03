@@ -30,7 +30,7 @@ public class CreateTopReward extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        Player player = event.getPlayer();
+        Player player = event.player();
         player.closeInventory();
         MineBlock block = getState();
         Colors.send(player, "#2C74B3Enter top position into chat. Enter number or interval (E.g. 1-3)");

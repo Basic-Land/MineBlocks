@@ -1,5 +1,6 @@
 package cz.raixo.blocks.gui.type;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -25,7 +26,9 @@ public enum InventoryType {
         throw new IllegalArgumentException("Can't fit that many items (" + items + ")");
     }
 
+    @Getter
     private final int size;
+    @Getter
     private final int rowLength;
     private final BiFunction<InventoryHolder, String, Inventory> creator;
 
@@ -37,13 +40,5 @@ public enum InventoryType {
 
     public Inventory create(InventoryHolder owner, String title) {
         return creator.apply(owner, title);
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public int getRowLength() {
-        return rowLength;
     }
 }

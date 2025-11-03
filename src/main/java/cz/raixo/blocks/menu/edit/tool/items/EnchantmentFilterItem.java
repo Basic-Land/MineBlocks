@@ -24,12 +24,12 @@ public class EnchantmentFilterItem extends BlockMenuItem {
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
         RequiredTool tool = ToolEditMenu.setToolIfNotPresent(getState());
-        if (itemClickEvent.getType().equals(ClickType.RIGHT)) {
+        if (itemClickEvent.type().equals(ClickType.RIGHT)) {
             tool.setEnchantmentDefault(tool.getEnchantmentDefault().getOther());
             BlockMenu<?> menu = getMenu();
             menu.saveAndUpdate();
         } else {
-            new EnchantmentFilterMenu(getState()).open(itemClickEvent.getPlayer());
+            new EnchantmentFilterMenu(getState()).open(itemClickEvent.player());
         }
     }
 

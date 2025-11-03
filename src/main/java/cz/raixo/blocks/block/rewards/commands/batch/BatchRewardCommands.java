@@ -29,7 +29,7 @@ public class BatchRewardCommands implements RewardCommands<BatchCommandEntry> {
 
     @Override
     public List<String> saveToList() {
-        return commands.stream().map(BatchCommandEntry::getCommand).collect(Collectors.toUnmodifiableList());
+        return commands.stream().map(BatchCommandEntry::command).collect(Collectors.toUnmodifiableList());
     }
 
     @Override

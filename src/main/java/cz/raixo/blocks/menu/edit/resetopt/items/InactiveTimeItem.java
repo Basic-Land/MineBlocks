@@ -24,7 +24,7 @@ public class InactiveTimeItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        Player player = itemClickEvent.getPlayer();
+        Player player = itemClickEvent.player();
         player.closeInventory();
         MineBlock block = getState();
         Colors.send(player, "#2C74B3Enter new inactive reset time into chat. Enter 0 to remove inactive reset");

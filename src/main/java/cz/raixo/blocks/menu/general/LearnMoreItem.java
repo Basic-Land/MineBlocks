@@ -20,7 +20,7 @@ public class LearnMoreItem extends AbstractItem<Void> {
 
     @Override
     public void click(ItemClickEvent<Void> itemClickEvent) {
-        Player player = itemClickEvent.getPlayer();
+        Player player = itemClickEvent.player();
         player.closeInventory();
         Colors.send(player, "&7MineBlocks wiki, where you can find #2C74B3invite to our support server&7, is available at #2C74B3https://mb.raixo.cz/");
     }

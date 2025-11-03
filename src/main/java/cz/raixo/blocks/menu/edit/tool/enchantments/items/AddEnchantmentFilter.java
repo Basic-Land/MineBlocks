@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class AddEnchantmentFilter extends BlockMenuItem {
 
-    private EnchantmentFilterMenu menu;
+    private final EnchantmentFilterMenu menu;
 
     public AddEnchantmentFilter(EnchantmentFilterMenu editMenu) {
         super(editMenu);
@@ -29,7 +29,7 @@ public class AddEnchantmentFilter extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        Player player = itemClickEvent.getPlayer();
+        Player player = itemClickEvent.player();
         new EnchantmentSelectMenu(getMenu(), getState(), enchantment -> selectLevels(player, enchantment, numberRange -> {
             ToolEditMenu.setToolIfNotPresent(getState())
                     .getEnchantmentFilters().put(enchantment, new ToolEnchantment(numberRange, Result.ALLOWED));

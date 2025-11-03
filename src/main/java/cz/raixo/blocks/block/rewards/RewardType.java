@@ -31,10 +31,9 @@ public enum RewardType {
 
         @Override
         public void set(ConfigurationSection section, Reward reward) {
-            if (reward instanceof TopReward) {
-                TopReward topReward = (TopReward) reward;
-                section.set("place", topReward.getRange().toString());
-                section.set("commands", topReward.getCommands().saveToList());
+            if (reward instanceof TopReward topReward) {
+                section.set("place", topReward.range().toString());
+                section.set("commands", topReward.commands().saveToList());
             }
         }
     },
@@ -64,13 +63,12 @@ public enum RewardType {
 
         @Override
         public void set(ConfigurationSection section, Reward reward) {
-            if (reward instanceof BreakReward) {
-                BreakReward breakReward = (BreakReward) reward;
-                if (breakReward.getCondition() != null)
+            if (reward instanceof BreakReward breakReward) {
+                if (breakReward.condition() != null)
                     section.set(
-                            breakReward.getCondition() instanceof IntervalCondition ? "interval" : "condition", breakReward.getCondition().toString()
+                            breakReward.condition() instanceof IntervalCondition ? "interval" : "condition", breakReward.condition().toString()
                     );
-                section.set("commands", breakReward.getCommands().saveToList());
+                section.set("commands", breakReward.commands().saveToList());
             }
         }
     },
@@ -91,11 +89,10 @@ public enum RewardType {
 
         @Override
         public void set(ConfigurationSection section, Reward reward) {
-            if (reward instanceof BreakCountReward) {
-                BreakCountReward breakCountReward = (BreakCountReward) reward;
-                section.set("from", breakCountReward.getRange().getMin());
-                section.set("to", breakCountReward.getRange().getMax());
-                section.set("commands", breakCountReward.getCommands().saveToList());
+            if (reward instanceof BreakCountReward breakCountReward) {
+                section.set("from", breakCountReward.range().getMin());
+                section.set("to", breakCountReward.range().getMax());
+                section.set("commands", breakCountReward.commands().saveToList());
             }
         }
     };

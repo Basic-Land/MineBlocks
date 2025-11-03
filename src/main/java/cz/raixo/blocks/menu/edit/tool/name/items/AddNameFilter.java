@@ -18,7 +18,7 @@ import java.util.concurrent.TimeoutException;
 
 public class AddNameFilter extends BlockMenuItem {
 
-    private NameFilterMenu menu;
+    private final NameFilterMenu menu;
 
     public AddNameFilter(NameFilterMenu editMenu) {
         super(editMenu);
@@ -27,7 +27,7 @@ public class AddNameFilter extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        Player player = itemClickEvent.getPlayer();
+        Player player = itemClickEvent.player();
         player.closeInventory();
         Colors.send(player, "#2C74B3Enter new name filter into chat. Learn more on our wiki");
         menu.getBlock().getPlugin().getEditValuesListener().awaitChatInput(player)

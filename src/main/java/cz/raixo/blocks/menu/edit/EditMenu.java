@@ -34,8 +34,8 @@ public class EditMenu extends BlockMenu<MapGuiFiller> {
         ), Component.text(block.getId()), InventoryType.CHEST_6), block);
         MapGuiFiller filler = getFiller();
         setPlayerInventoryHandler(itemClickEvent -> {
-            int slot = itemClickEvent.getSlot();
-            Inventory inventory = itemClickEvent.getPlayer().getInventory();
+            int slot = itemClickEvent.slot();
+            Inventory inventory = itemClickEvent.player().getInventory();
             if (slot < 0 || slot >= inventory.getSize()) return;
             ItemStack clicked = inventory.getItem(slot);
             if (clicked == null || !clicked.getType().isBlock()) return;
@@ -75,7 +75,7 @@ public class EditMenu extends BlockMenu<MapGuiFiller> {
         })
                         .withDefaultState(false)
                         .withClickHandler(itemClickEvent -> {
-                            GuiItem<Boolean> guiItem = itemClickEvent.getGuiItem();
+                            GuiItem<Boolean> guiItem = itemClickEvent.guiItem();
                             if (Boolean.TRUE.equals(guiItem.getState())) {
                                 remove();
                             } else {
@@ -86,7 +86,7 @@ public class EditMenu extends BlockMenu<MapGuiFiller> {
         filler.setItem('o', new GuiItemBuilder<>(filler, ItemStackBuilder.create(Material.BARRIER)
                 .withName(MineDown.parse("&#DF2E38&Close"))
                 .build())
-                .withClickHandler(itemClickEvent -> itemClickEvent.getPlayer().closeInventory())
+                .withClickHandler(itemClickEvent -> itemClickEvent.player().closeInventory())
                 .build());
     }
 

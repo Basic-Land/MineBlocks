@@ -29,7 +29,7 @@ public class MapGuiFiller implements GuiFiller<MapGuiFiller> {
             rowLength = 0;
             rows = 0;
         } else {
-            InventoryType type = meta.getType();
+            InventoryType type = meta.type();
             rowLength = type.getRowLength();
             rows = type.getSize() / rowLength;
             for (int y = 0; y < rows; y++) {

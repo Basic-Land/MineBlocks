@@ -57,9 +57,9 @@ public class EnchantmentSelectMenu extends Gui<MapGuiFiller> {
             return null;
         })
                 .withClickHandler(itemClickEvent -> {
-                    int slot = itemClickEvent.getSlot();
+                    int slot = itemClickEvent.slot();
                     if (slot < enchantments.size()) {
-                        itemClickEvent.getGuiItem().getState().accept(enchantments.get(slot));
+                        itemClickEvent.guiItem().getState().accept(enchantments.get(slot));
                     }
                 })
                 .withDefaultState(callback)

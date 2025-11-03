@@ -20,6 +20,7 @@ import java.util.concurrent.Executor;
 public abstract class PageableBlockMenu<T extends GuiFiller<T>> extends BlockMenu<T> {
 
     private int page = 0;
+    @Getter
     private final StateUpdater<MineBlock> stateUpdater = StateUpdaterBuilder.sameStateUpdater(MineBlock.class)
             .withRefreshRate(Duration.ofSeconds(1))
             .build();
@@ -34,27 +35,6 @@ public abstract class PageableBlockMenu<T extends GuiFiller<T>> extends BlockMen
 
     public PageableBlockMenu(T filler, Component title, InventoryType type, MineBlock block) {
         super(filler, title, type, block);
-    }
-
-    public StateUpdater<MineBlock> getStateUpdater() {
-        return stateUpdater;
-    }
-
-    public void update() {
-        for (GuiItem<?> item : getFiller().getItems()) {
-            item.stateUpdated();
-        }
-    }
-
-    public void save() {
-        MineBlock block = getBlock();
-        block.getPlugin().getConfiguration().getBlocksConfig().setBlock(block);
-        block.getPlugin().saveConfiguration();
-    }
-
-    public void saveAndUpdate() {
-        update();
-        save();
     }
 
     public void remove() {
@@ -74,7 +54,7 @@ public abstract class PageableBlockMenu<T extends GuiFiller<T>> extends BlockMen
 
     public int getMaxPage() {
         BlockRewards rewards = getBlock().getRewards();
-        double size = rewards.getRewards().size() + rewards.getLastRewards().size();
+        double size = rewards.rewards().size() + rewards.lastRewards().size();
         return Math.max(((int) Math.ceil(size / getPageSize())) - 1, 0);
     }
 
@@ -90,7 +70,4 @@ public abstract class PageableBlockMenu<T extends GuiFiller<T>> extends BlockMen
         this.page = page;
         update();
     }
-
-
-
 }

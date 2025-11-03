@@ -25,7 +25,7 @@ public class LocationItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        Player player = itemClickEvent.getPlayer();
+        Player player = itemClickEvent.player();
         player.closeInventory();
         Colors.send(player, "#2C74B3Click on block to teleport mineblock there!");
         MineBlock block = getState();

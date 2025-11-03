@@ -2,8 +2,8 @@ package cz.raixo.blocks.util.range;
 
 public class RangeNumber implements NumberRange {
 
-    private int min;
-    private int max;
+    private final int min;
+    private final int max;
 
     public RangeNumber(int n1, int n2) {
         this.min = Math.min(n1, n2);

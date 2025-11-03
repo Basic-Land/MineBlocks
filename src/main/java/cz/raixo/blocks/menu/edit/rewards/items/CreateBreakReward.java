@@ -32,7 +32,7 @@ public class CreateBreakReward extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        Player player = event.getPlayer();
+        Player player = event.player();
         player.closeInventory();
         MineBlock block = getState();
         Colors.send(player, "#2C74B3Enter condition (less than 5, more than 5), interval (10, 50), range (10, 50) or last into chat. Learn more on our wiki");
@@ -60,7 +60,7 @@ public class CreateBreakReward extends BlockMenuItem {
                                     }, () -> BreakCondition.parse(s)
                                             .ifPresentOrElse(breakCondition -> {
                                                 Reward reward = new BreakReward(menu.getRewardName("break"), breakCondition, new RandomRewardCommands(new LinkedList<>()));
-                                                block.getRewards().getLastRewards().add(reward);
+                                                block.getRewards().lastRewards().add(reward);
                                                 getMenu().saveAndUpdate();
                                                 new RewardEditMenu(block, reward).open(player);
                                             }, () -> Colors.send(player, "#DF2E38Invalid break condition/interval. Learn more on our wiki")));

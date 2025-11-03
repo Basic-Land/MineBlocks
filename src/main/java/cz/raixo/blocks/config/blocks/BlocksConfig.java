@@ -251,9 +251,9 @@ public class BlocksConfig {
         HologramOffset offset = hologram.getOffset();
         if (!offset.isEmpty()) {
             ConfigurationSection offsetSection = section.createSection("offset");
-            if (offset.getX() != 0) offsetSection.set("x", offset.getX());
-            if (offset.getY() != 0) offsetSection.set("y", offset.getY());
-            if (offset.getZ() != 0) offsetSection.set("z", offset.getZ());
+            if (offset.x() != 0) offsetSection.set("x", offset.x());
+            if (offset.y() != 0) offsetSection.set("y", offset.y());
+            if (offset.z() != 0) offsetSection.set("z", offset.z());
         }
         section.set("lines", hologram.getLines());
     }
@@ -286,11 +286,11 @@ public class BlocksConfig {
 
     private void setRewards(ConfigurationSection section, BlockRewards rewards) {
         List<Reward> rewardList = new LinkedList<>();
-        rewardList.addAll(rewards.getRewards());
-        rewardList.addAll(rewards.getLastRewards());
+        rewardList.addAll(rewards.rewards());
+        rewardList.addAll(rewards.lastRewards());
         for (Reward reward : rewardList) {
             Reward.save(
-                    section.createSection(reward.getName()),
+                    section.createSection(reward.name()),
                     reward
             );
         }

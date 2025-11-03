@@ -10,13 +10,8 @@ import cz.raixo.blocks.block.rewards.context.RewardContext;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor
-public class BreakReward implements Reward {
-
-    private final String name;
-    private final BreakCondition condition;
-    private final RewardCommands<? extends RewardEntry> commands;
+public record BreakReward(String name, BreakCondition condition,
+                          RewardCommands<? extends RewardEntry> commands) implements Reward {
 
     @Override
     public RewardType getType() {
@@ -34,5 +29,4 @@ public class BreakReward implements Reward {
         if (condition == null) return false;
         return condition.isLast();
     }
-
 }

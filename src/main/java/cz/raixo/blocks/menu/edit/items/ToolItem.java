@@ -22,7 +22,7 @@ public class ToolItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        new ToolEditMenu(getState()).open(itemClickEvent.getPlayer());
+        new ToolEditMenu(getState()).open(itemClickEvent.player());
     }
 
     @Override

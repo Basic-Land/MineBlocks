@@ -13,4 +13,8 @@ public class RandomCommandEntry implements RewardEntry {
     private final String command;
     private int chance;
 
+    @Override
+    public String command() {
+        return command;
+    }
 }

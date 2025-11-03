@@ -25,7 +25,7 @@ public class InactiveMessageItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        Player player = itemClickEvent.getPlayer();
+        Player player = itemClickEvent.player();
         player.closeInventory();
         MineBlock block = getState();
         Colors.send(player, "#2C74B3Enter new inactive reset message into chat. You can use \\n to indicate new line. Enter none to remove the message");

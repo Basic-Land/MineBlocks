@@ -30,7 +30,7 @@ public class AddCommandItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        Player player = event.getPlayer();
+        Player player = event.player();
         player.closeInventory();
         Colors.send(player, "#2C74B3Enter new reward command into chat.");
         getState().getPlugin().getEditValuesListener().awaitChatInput(player)
@@ -45,7 +45,7 @@ public class AddCommandItem extends BlockMenuItem {
                 })
                 .thenAccept(s -> Gui.runSync(() -> {
                     if (s != null) {
-                        RewardCommands<? extends RewardEntry> commands = menu.getReward().getCommands();
+                        RewardCommands<? extends RewardEntry> commands = menu.getReward().commands();
                         if (commands instanceof RandomRewardCommands) {
                             ((RandomRewardCommands) commands).addCommand(new RandomCommandEntry(s, 100));
                         } else if (commands instanceof BatchRewardCommands) {

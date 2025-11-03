@@ -1,5 +1,6 @@
 package cz.raixo.blocks.config.options;
 
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ public enum NotificationType {
     ACTIONBAR {
         @Override
         public void send(Player player, String message) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+            player.sendActionBar(LegacyComponentSerializer.legacySection().deserialize(message));
         }
     },
     CHAT {

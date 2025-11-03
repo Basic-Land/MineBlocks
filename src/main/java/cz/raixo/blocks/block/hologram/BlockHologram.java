@@ -51,7 +51,7 @@ public class BlockHologram {
         HologramOffset hologramOffset = getOffset();
         return block.getLocation().clone()
                 .add(.5, 1.5, .5)
-                .add(hologramOffset.getX(), hologramOffset.getY(), hologramOffset.getZ());
+                .add(hologramOffset.x(), hologramOffset.y(), hologramOffset.z());
     }
 
     public void updateLines() {

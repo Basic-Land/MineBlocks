@@ -15,13 +15,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-@Getter
-@RequiredArgsConstructor
-public class BlockRewards {
-
-    private final MineBlock block;
-    private final List<Reward> rewards;
-    private final List<Reward> lastRewards;
+public record BlockRewards(MineBlock block, List<Reward> rewards, List<Reward> lastRewards) {
 
     private void dispatchCommand(String command) {
         if (command == null) return;
@@ -33,7 +27,7 @@ public class BlockRewards {
         List<UUID> sortedPlayers = block.getPlayerDataMap().values().stream()
                 .sorted(Comparator.comparingInt(PlayerData::getBreaks).reversed())
                 .map(PlayerData::getUuid)
-                .collect(Collectors.toList());
+                .toList();
         Map<UUID, Integer> positions = new HashMap<>();
         for (int i = 0; i < sortedPlayers.size(); i++) {
             positions.put(sortedPlayers.get(i), i + 1);
@@ -51,7 +45,7 @@ public class BlockRewards {
             OfflinePlayer offlinePlayer = block.getPlugin().getServer().getOfflinePlayer(player.getUuid());
             for (Reward lastReward : lastRewards) {
                 if (lastReward.canGet(player, context)) {
-                    for (String rewardCmd : lastReward.getCommands().rewardPlayer(player, context)) {
+                    for (String rewardCmd : lastReward.commands().rewardPlayer(player, context)) {
                         String cmd = parsePlaceholders(offlinePlayer, player, rewardCmd);
                         if (offlineRewards && !player.isOnline()) {
                             try {
@@ -79,7 +73,7 @@ public class BlockRewards {
         List<Runnable> toExecute = new LinkedList<>();
         for (Reward reward : rewards) {
             if (reward.canGet(player, context)) {
-                for (String rewardCmd : reward.getCommands().rewardPlayer(player, context)) {
+                for (String rewardCmd : reward.commands().rewardPlayer(player, context)) {
                     toExecute.add(() -> dispatchCommand(parsePlaceholders(
                             offlinePlayer, player, rewardCmd
                     )));

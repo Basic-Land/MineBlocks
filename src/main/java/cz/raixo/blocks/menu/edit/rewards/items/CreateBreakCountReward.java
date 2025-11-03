@@ -30,7 +30,7 @@ public class CreateBreakCountReward extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        Player player = event.getPlayer();
+        Player player = event.player();
         player.closeInventory();
         MineBlock block = getState();
         Colors.send(player, "#2C74B3Enter break count range (E.g. 10-50) into chat. Learn more on our wiki");

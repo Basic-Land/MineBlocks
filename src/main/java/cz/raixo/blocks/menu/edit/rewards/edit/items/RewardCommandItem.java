@@ -35,18 +35,17 @@ public class RewardCommandItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        Player player = event.getPlayer();
-        int index = event.getSlot() + (menu.getPage() * menu.getPage());
+        Player player = event.player();
+        int index = event.slot() + (menu.getPage() * menu.getPage());
         if (index < 0) return;
         List<? extends RewardEntry> rewards = menu.getEntries();
         if (index < rewards.size()) {
-            if (event.getType() == ClickType.LEFT) {
-                menu.getReward().getCommands().removeCommand(rewards.get(index));
+            if (event.type() == ClickType.LEFT) {
+                menu.getReward().commands().removeCommand(rewards.get(index));
                 menu.saveAndUpdate();
-            } else if (event.getType() == ClickType.RIGHT) {
+            } else if (event.type() == ClickType.RIGHT) {
                 RewardEntry entry = rewards.get(index);
-                if (!(entry instanceof RandomCommandEntry)) return;
-                RandomCommandEntry command = (RandomCommandEntry) entry;
+                if (!(entry instanceof RandomCommandEntry command)) return;
                 player.closeInventory();
                 Colors.send(player, "#2C74B3Enter new chance into chat. Learn more on our wiki");
                 getState().getPlugin().getEditValuesListener().awaitChatInput(player)
@@ -64,7 +63,7 @@ public class RewardCommandItem extends BlockMenuItem {
                                 NumberUtil.parseInt(s)
                                         .ifPresentOrElse(integer -> {
                                             command.setChance(integer);
-                                            RewardCommands<? extends RewardEntry> commands = menu.getReward().getCommands();
+                                            RewardCommands<? extends RewardEntry> commands = menu.getReward().commands();
                                             if (commands instanceof RandomRewardCommands) {
                                                 ((RandomRewardCommands) commands).refresh();
                                             }
@@ -108,12 +107,11 @@ public class RewardCommandItem extends BlockMenuItem {
             RewardEntry command = pageList.get(slot);
 
             List<Component> lore = new LinkedList<>(List.of(
-                    MineDown.parse("&7" + command.getCommand()),
+                    MineDown.parse("&7" + command.command()),
                     Component.empty()
                     ));
 
-            if (command instanceof RandomCommandEntry) {
-                RandomCommandEntry randomCommandEntry = (RandomCommandEntry) command;
+            if (command instanceof RandomCommandEntry randomCommandEntry) {
                 lore.add(MineDown.parse("&7Chance: &#2C74B3&" + randomCommandEntry.getChance()));
                 lore.add(Component.empty());
             }

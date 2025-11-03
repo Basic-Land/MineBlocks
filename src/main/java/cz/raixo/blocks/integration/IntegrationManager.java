@@ -38,19 +38,11 @@ public class IntegrationManager implements PlaceholderProvider {
         INTEGRATION_REGISTRY.put(PAPIIntegration.PLUGIN_NAME, PAPIIntegration::new);
     }
 
-    private class ListAfkProvider implements AfkProvider {
-
-        private final List<AfkProvider> providers;
-
-        public ListAfkProvider(List<AfkProvider> providers) {
-            this.providers = providers;
-        }
-
+    private record ListAfkProvider(List<AfkProvider> providers) implements AfkProvider {
         @Override
         public boolean isAFK(Player player) {
-            return providers.stream().anyMatch(s -> s.isAFK(player));
-        }
-
+                return providers.stream().anyMatch(s -> s.isAFK(player));
+            }
     }
 
     private final List<Integration> integrations;
@@ -79,11 +71,9 @@ public class IntegrationManager implements PlaceholderProvider {
                 .map(i -> (HologramProvider) i)
                 .orElseThrow((Supplier<Throwable>) () -> new IllegalStateException("There is no supported hologram plugin installed!"));
         plugin.logInfo("Using {0} as hologram provider", ((Integration) hologramProvider).getPluginName());
-        prefixProvider = integrations.stream()
+        prefixProvider = (PrefixProvider) integrations.stream()
                 .filter(PrefixProvider.class::isInstance)
-                .max(Comparator.comparingInt(Integration::getPriority))
-                .map(i -> (PrefixProvider) i)
-                .orElse(null);
+                .max(Comparator.comparingInt(Integration::getPriority)).orElse(null);
         if (prefixProvider != null)
             plugin.logInfo("Using {0} as prefix provider", ((Integration) prefixProvider).getPluginName());
         afkProvider = new ListAfkProvider(
@@ -95,7 +85,7 @@ public class IntegrationManager implements PlaceholderProvider {
         placeholderProviders = integrations.stream()
                 .filter(PlaceholderProvider.class::isInstance)
                 .map(i -> (PlaceholderProvider) i)
-                .collect(Collectors.toUnmodifiableList());
+                .toList();
     }
 
     public void disable() {

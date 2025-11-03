@@ -3,6 +3,8 @@ package cz.raixo.blocks.gui.refresher;
 import cz.raixo.blocks.gui.Gui;
 import cz.raixo.blocks.gui.item.GuiItem;
 import cz.raixo.blocks.gui.item.state.updater.StateUpdater;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -14,26 +16,16 @@ import java.util.stream.Collectors;
 
 public class GuiRefresher {
 
+    @Getter
     private class NextRefreshData {
 
         private final GuiItem<?> item;
+        @Setter
         private long time;
 
         public NextRefreshData(GuiItem<?> item, long time) {
             this.item = item;
             this.time = time;
-        }
-
-        public GuiItem<?> getItem() {
-            return item;
-        }
-
-        public void setTime(long time) {
-            this.time = time;
-        }
-
-        public long getTime() {
-            return time;
         }
 
         public boolean shouldBeUpdated() {

@@ -12,6 +12,8 @@ import cz.raixo.blocks.gui.listener.GuiListener;
 import cz.raixo.blocks.gui.meta.GuiMeta;
 import cz.raixo.blocks.gui.refresher.GuiRefresher;
 import cz.raixo.blocks.gui.type.InventoryType;
+import lombok.Getter;
+import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
@@ -32,8 +34,9 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class Gui<T extends GuiFiller<T>> implements InventoryHolder {
 
+    @Getter
     private static Plugin plugin;
-    private static final Executor DEFAULT_EXECUTOR = Executors.newCachedThreadPool();
+    private static final Executor DEFAULT_EXECUTOR = Executors.newVirtualThreadPerTaskExecutor();
     private static final ItemStack AIR = new ItemStack(Material.AIR);
     public static final LegacyComponentSerializer COMPONENT_SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
     public static final ScheduledExecutorService SCHEDULER = Executors.newSingleThreadScheduledExecutor();
@@ -47,29 +50,31 @@ public class Gui<T extends GuiFiller<T>> implements InventoryHolder {
         Gui.plugin = null;
     }
 
-    public static Plugin getPlugin() {
-        return plugin;
-    }
-
     public static void runSync(Runnable runnable) {
         if (Bukkit.isPrimaryThread()) runnable.run();
         else plugin.getServer().getScheduler().runTask(plugin, runnable);
     }
 
+    @Getter
     private final GuiMeta<T> meta;
+    @Getter
     private final Executor executor;
     private final Inventory inventory;
     private boolean updating = false;
     private final Object updatingMonitor = new Object();
+    @Getter
     private final GuiRefresher refresher;
+    @Getter
     private final Set<Player> viewers = new LinkedHashSet<>();
+    @Setter
+    @Getter
     private ClickHandler<Void> playerInventoryHandler;
 
     public Gui(GuiMeta<T> meta, Executor executor) {
         this.meta = meta.withParent(this);
         this.refresher = new GuiRefresher(this);
         this.executor = executor;
-        this.inventory = meta.getType().create(this, COMPONENT_SERIALIZER.serialize(meta.getTitle()));
+        this.inventory = meta.type().create(this, COMPONENT_SERIALIZER.serialize(meta.title()));
     }
 
     public Gui(GuiMeta<T> meta) {
@@ -81,15 +86,7 @@ public class Gui<T extends GuiFiller<T>> implements InventoryHolder {
     }
 
     public T getFiller() {
-        return meta.getFiller();
-    }
-
-    public GuiMeta<T> getMeta() {
-        return meta;
-    }
-
-    public Executor getExecutor() {
-        return executor;
+        return meta.filler();
     }
 
     @NotNull
@@ -163,21 +160,4 @@ public class Gui<T extends GuiFiller<T>> implements InventoryHolder {
             stopUpdating();
         }
     }
-
-    public Set<Player> getViewers() {
-        return viewers;
-    }
-
-    public GuiRefresher getRefresher() {
-        return refresher;
-    }
-
-    public ClickHandler<Void> getPlayerInventoryHandler() {
-        return playerInventoryHandler;
-    }
-
-    public void setPlayerInventoryHandler(ClickHandler<Void> playerInventoryHandler) {
-        this.playerInventoryHandler = playerInventoryHandler;
-    }
-
 }

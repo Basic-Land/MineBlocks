@@ -11,11 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class AddMaterialFilter extends BlockMenuItem {
 
-    private MaterialFilterMenu menu;
-
     public AddMaterialFilter(MaterialFilterMenu editMenu) {
         super(editMenu);
-        this.menu = editMenu;
     }
 
     @Override

@@ -32,7 +32,7 @@ public class PAPIIntegration implements Integration, PlaceholderProvider {
     public void disable() {
         try {
             placeholders.unregister();
-        } catch (Exception e) {}
+        } catch (Exception ignored) {}
     }
 
     @Override

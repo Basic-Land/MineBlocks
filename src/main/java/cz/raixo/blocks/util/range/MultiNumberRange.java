@@ -1,17 +1,10 @@
 package cz.raixo.blocks.util.range;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
-@RequiredArgsConstructor
-public class MultiNumberRange implements NumberRange {
-
-    private final List<NumberRange> ranges;
+public record MultiNumberRange(List<NumberRange> ranges) implements NumberRange {
 
     @Override
     public int getMin() {

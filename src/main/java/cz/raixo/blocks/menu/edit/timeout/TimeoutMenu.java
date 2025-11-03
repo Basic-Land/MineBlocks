@@ -24,8 +24,8 @@ public class TimeoutMenu extends BlockMenu<MapGuiFiller> {
         ), Component.text(block.getId() + " | Timeout"), InventoryType.CHEST_3, block);
 
         setPlayerInventoryHandler(itemClickEvent -> {
-            int slot = itemClickEvent.getSlot();
-            Inventory inventory = itemClickEvent.getPlayer().getInventory();
+            int slot = itemClickEvent.slot();
+            Inventory inventory = itemClickEvent.player().getInventory();
             if (slot < 0 || slot >= inventory.getSize()) return;
             ItemStack clicked = inventory.getItem(slot);
             if (clicked == null || !clicked.getType().isBlock()) return;

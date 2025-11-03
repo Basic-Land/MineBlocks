@@ -44,7 +44,7 @@ public class RandomRewardCommands implements RewardCommands<RandomCommandEntry> 
     public List<String> saveToList() {
         List<String> value = new LinkedList<>();
         for (RandomCommandEntry entry : entries) {
-            value.add(entry.getChance() + ";" + entry.getCommand());
+            value.add(entry.getChance() + ";" + entry.command());
 
         }
         return value;
@@ -71,7 +71,7 @@ public class RandomRewardCommands implements RewardCommands<RandomCommandEntry> 
     public void refresh() {
         commands.clear();
         for (RandomCommandEntry entry : entries) {
-            commands.add(entry.getChance(), entry.getCommand());
+            commands.add(entry.getChance(), entry.command());
         }
     }
 

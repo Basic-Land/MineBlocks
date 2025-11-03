@@ -19,7 +19,7 @@ public class ResetOptionsItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        new ResetOptionsMenu(getState()).open(itemClickEvent.getPlayer());
+        new ResetOptionsMenu(getState()).open(itemClickEvent.player());
     }
 
     @Override

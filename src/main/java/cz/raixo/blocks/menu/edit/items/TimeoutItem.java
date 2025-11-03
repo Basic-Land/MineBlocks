@@ -19,7 +19,7 @@ public class TimeoutItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        new TimeoutMenu(getState()).open(itemClickEvent.getPlayer());
+        new TimeoutMenu(getState()).open(itemClickEvent.player());
     }
 
     @Override

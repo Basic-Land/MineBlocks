@@ -35,13 +35,13 @@ public class EnchantmentFilterItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        int index = event.getSlot() + (menu.getPage() * menu.getPage());
+        int index = event.slot() + (menu.getPage() * menu.getPage());
         if (index < 0) return;
         List<Map.Entry<Enchantment, ToolEnchantment>> enchantments = menu.getEnchantments();
         if (index < enchantments.size()) {
-            if (event.getType() == ClickType.LEFT) {
+            if (event.type() == ClickType.LEFT) {
                 Optional.ofNullable(getState().getRequiredTool()).ifPresent(t -> t.getEnchantmentFilters().remove(enchantments.get(index).getKey()));
-            } else if (event.getType() == ClickType.RIGHT) {
+            } else if (event.type() == ClickType.RIGHT) {
                 ToolEnchantment enchantment = enchantments.get(index).getValue();
                 enchantment.setResult(enchantment.getResult().getOther());
             }

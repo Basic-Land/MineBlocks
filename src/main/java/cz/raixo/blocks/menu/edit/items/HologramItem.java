@@ -22,8 +22,8 @@ public class HologramItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        itemClickEvent.getPlayer().closeInventory();
-        MBCommand.showHologram(itemClickEvent.getPlayer(), getState());
+        itemClickEvent.player().closeInventory();
+        MBCommand.showHologram(itemClickEvent.player(), getState());
     }
 
     @Override

@@ -44,14 +44,11 @@ public class RequiredTool implements Predicate<ItemStack> {
         ).getBooleanValue()) {
             return false;
         }
-        if (!MaterialFilter.matches(
+        return MaterialFilter.matches(
                 itemStack.getType(),
                 materialFilters,
                 materialDefault
-        ).getBooleanValue()) {
-            return false;
-        }
-        return true;
+        ).getBooleanValue();
     }
 
 }

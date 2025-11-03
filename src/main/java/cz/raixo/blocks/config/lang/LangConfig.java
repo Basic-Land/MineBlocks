@@ -1,6 +1,5 @@
 package cz.raixo.blocks.config.lang;
 
-import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.Date;
@@ -8,18 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Getter
-public class LangConfig {
+public record LangConfig(ConfigurationSection config) {
 
     private static final long HOUR_MS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS);
     private static final long MINUTE_MS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
     private static final long SECOND_MS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS);
-
-    private final ConfigurationSection config;
-
-    public LangConfig(ConfigurationSection config) {
-        this.config = config;
-    }
 
     public String getNobodyName() {
         return config.getString("top.nobody", "Nobody");

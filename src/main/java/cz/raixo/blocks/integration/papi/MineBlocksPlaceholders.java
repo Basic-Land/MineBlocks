@@ -59,21 +59,22 @@ public class MineBlocksPlaceholders extends PlaceholderExpansion {
             return breaks ?
                     String.valueOf(playerData.map(PlayerData::getBreaks).orElse(0)) :
                     playerData.map(PlayerData::getDisplayName).orElse("");
-        } else switch (value) {
-            case "hp": return String.valueOf(block.getHealth().getHealth());
-            case "max_hp": return String.valueOf(block.getHealth().getMaxHealth());
-            case "breaks": return String.valueOf(
+        } else return switch (value) {
+            case "hp" -> String.valueOf(block.getHealth().getHealth());
+            case "max_hp" -> String.valueOf(block.getHealth().getMaxHealth());
+            case "breaks" -> String.valueOf(
                     Optional.ofNullable(
                                     block.getPlayerDataMap().get(player.getUniqueId()))
                             .map(PlayerData::getBreaks)
                             .orElse(0)
             );
-            case "timeout":
+            case "timeout" -> {
                 BlockCoolDown coolDown = block.getCoolDown();
-                if (!coolDown.isActive()) return "";
-                return block.getPlugin().getConfiguration().getLangConfig().getTimeoutFormatted(coolDown.getActive().getEnd());
-            default: return null;
-        }
+                if (!coolDown.isActive()) yield "";
+                yield block.getPlugin().getConfiguration().getLangConfig().getTimeoutFormatted(coolDown.getActive().getEnd());
+            }
+            default -> null;
+        };
     }
 
 }

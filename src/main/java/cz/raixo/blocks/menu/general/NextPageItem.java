@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class NextPageItem extends BlockMenuItem {
 
-    private PageableBlockMenu<?> menu;
+    private final PageableBlockMenu<?> menu;
 
     public NextPageItem(PageableBlockMenu<?> editMenu) {
         super(editMenu);

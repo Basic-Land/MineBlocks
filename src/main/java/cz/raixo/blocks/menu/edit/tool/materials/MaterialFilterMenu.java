@@ -36,8 +36,8 @@ public class MaterialFilterMenu extends PageableBlockMenu<MapGuiFiller> {
         ), Component.text(block.getId() + " | Type filters"), InventoryType.CHEST_3, block);
 
         setPlayerInventoryHandler(itemClickEvent -> {
-            int slot = itemClickEvent.getSlot();
-            Inventory inventory = itemClickEvent.getPlayer().getInventory();
+            int slot = itemClickEvent.slot();
+            Inventory inventory = itemClickEvent.player().getInventory();
             if (slot < 0 || slot >= inventory.getSize()) return;
             ItemStack clicked = inventory.getItem(slot);
             if (clicked == null) return;

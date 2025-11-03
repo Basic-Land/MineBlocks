@@ -25,12 +25,12 @@ public class BlockTop {
             }
         }
         if (players.size() > MAX_TOP_SIZE)
-            players.remove(players.size() - 1);
+            players.removeLast();
     }
 
     private PlayerData getLast() {
         if (players.isEmpty()) return null;
-        return players.get(players.size() - 1);
+        return players.getLast();
     }
 
     public Optional<PlayerData> getPlayer(int pos) {

@@ -28,13 +28,13 @@ public class NameFilterFile extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        int index = event.getSlot() + (menu.getPage() * menu.getPage());
+        int index = event.slot() + (menu.getPage() * menu.getPage());
         if (index < 0) return;
         List<NameFilter> nameFilters = Optional.of(getState().getRequiredTool()).map(RequiredTool::getNameFilters).orElseGet(ArrayList::new);
         if (index < nameFilters.size()) {
-            if (event.getType() == ClickType.LEFT) {
+            if (event.type() == ClickType.LEFT) {
                 nameFilters.remove(index);
-            } else if (event.getType() == ClickType.RIGHT) {
+            } else if (event.type() == ClickType.RIGHT) {
                 NameFilter nameFilter = nameFilters.get(index);
                 nameFilter.setResult(nameFilter.getResult().getOther());
             }

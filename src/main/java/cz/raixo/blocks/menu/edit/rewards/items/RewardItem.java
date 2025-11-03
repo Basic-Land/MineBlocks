@@ -34,15 +34,15 @@ public class RewardItem extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        int index = event.getSlot() + (menu.getPage() * menu.getPage());
+        int index = event.slot() + (menu.getPage() * menu.getPage());
         if (index < 0) return;
         List<Reward> rewards = menu.getEntries();
         if (index < rewards.size()) {
-            if (event.getType() == ClickType.LEFT) {
+            if (event.type() == ClickType.LEFT) {
                 menu.removeReward(rewards.get(index));
                 menu.saveAndUpdate();
-            } else if (event.getType() == ClickType.RIGHT) {
-                new RewardEditMenu(getState(), rewards.get(index)).open(event.getPlayer());
+            } else if (event.type() == ClickType.RIGHT) {
+                new RewardEditMenu(getState(), rewards.get(index)).open(event.player());
             }
         }
     }
@@ -73,48 +73,47 @@ public class RewardItem extends BlockMenuItem {
             String name;
             String head;
             String tagLine;
-            if (reward instanceof BreakReward) {
-                BreakReward breakReward = (BreakReward) reward;
-                name = "Break reward";
-                head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2UzYTU5ZTRjNTc1MzI5NWQ4ZDY5YzIxNDM0NGViYjNlNTQ3ZjkzNmI4NjdhZDlkNWViZDUxOWZhZDg1Y2UzIn19fQ==";
-                BreakCondition breakCondition = breakReward.getCondition();
-                if (breakCondition instanceof ComparatorCondition) {
-                    tagLine = "If breaks are " + breakCondition;
-                } else if (breakCondition instanceof IntervalCondition) {
-                    tagLine = "Every "+ breakCondition +" breaks";
-                } else if (breakCondition instanceof RangeCondition) {
-                    tagLine = "Breaks " + breakCondition;
-                } else if (breakCondition instanceof LastCondition) {
-                    tagLine = "Last break";
-                } else tagLine = "???";
-            } else if (reward instanceof BreakCountReward) {
-                BreakCountReward breakCountReward = (BreakCountReward) reward;
-                name = "Break count reward";
-                head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDJhNmYwZTg0ZGFlZmM4YjIxYWE5OTQxNWIxNmVkNWZkYWE2ZDhkYzBjM2NkNTkxZjQ5Y2E4MzJiNTc1In19fQ==";
-                tagLine = breakCountReward.getRange().toString();
-            } else if (reward instanceof TopReward) {
-                TopReward topReward = (TopReward) reward;
-                name = "Top reward";
-                head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmNjYmY5ODgzZGQzNTlmZGYyMzg1YzkwYTQ1OWQ3Mzc3NjUzODJlYzQxMTdiMDQ4OTVhYzRkYzRiNjBmYyJ9fX0=";
-                tagLine = "Places: " + topReward.getRange().toString();
-            } else {
-                name = "Reward";
-                head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2NiODgyMjVlZTRhYjM5ZjdjYmY1ODFmMjJjYmYwOGJkY2MzMzg4NGYxZmY3NDc2ODkzMTI4NDE1MTZjMzQ1In19fQ==";
-                tagLine = "???";
+            switch (reward) {
+                case BreakReward breakReward -> {
+                    name = "Break reward";
+                    head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2UzYTU5ZTRjNTc1MzI5NWQ4ZDY5YzIxNDM0NGViYjNlNTQ3ZjkzNmI4NjdhZDlkNWViZDUxOWZhZDg1Y2UzIn19fQ==";
+                    BreakCondition breakCondition = breakReward.condition();
+                    tagLine = switch (breakCondition) {
+                        case ComparatorCondition comparatorCondition -> "If breaks are " + breakCondition;
+                        case IntervalCondition intervalCondition -> "Every " + breakCondition + " breaks";
+                        case RangeCondition rangeCondition -> "Breaks " + breakCondition;
+                        case LastCondition lastCondition -> "Last break";
+                        case null, default -> "???";
+                    };
+                }
+                case BreakCountReward breakCountReward -> {
+                    name = "Break count reward";
+                    head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDJhNmYwZTg0ZGFlZmM4YjIxYWE5OTQxNWIxNmVkNWZkYWE2ZDhkYzBjM2NkNTkxZjQ5Y2E4MzJiNTc1In19fQ==";
+                    tagLine = breakCountReward.range().toString();
+                }
+                case TopReward topReward -> {
+                    name = "Top reward";
+                    head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmNjYmY5ODgzZGQzNTlmZGYyMzg1YzkwYTQ1OWQ3Mzc3NjUzODJlYzQxMTdiMDQ4OTVhYzRkYzRiNjBmYyJ9fX0=";
+                    tagLine = "Places: " + topReward.range().toString();
+                }
+                case null, default -> {
+                    name = "Reward";
+                    head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2NiODgyMjVlZTRhYjM5ZjdjYmY1ODFmMjJjYmYwOGJkY2MzMzg4NGYxZmY3NDc2ODkzMTI4NDE1MTZjMzQ1In19fQ==";
+                    tagLine = "???";
+                }
             }
             List<Component> lore = new LinkedList<>();
             lore.add(MineDown.parse("&7" + tagLine));
             lore.add(Component.empty());
             lore.add(MineDown.parse("&7Commands:"));
 
-            List<? extends RewardEntry> commands = reward.getCommands().asList();
+            List<? extends RewardEntry> commands = reward.commands().asList();
 
             for (RewardEntry entry : commands) {
-                if (entry instanceof RandomCommandEntry) {
-                    RandomCommandEntry randomEntry = (RandomCommandEntry) entry;
-                    lore.add(MineDown.parse("&7- &#2C74B3&" + randomEntry.getCommand() + " &7(" + randomEntry.getChance() + ")"));
+                if (entry instanceof RandomCommandEntry randomEntry) {
+                    lore.add(MineDown.parse("&7- &#2C74B3&" + randomEntry.command() + " &7(" + randomEntry.getChance() + ")"));
                 } else {
-                    lore.add(MineDown.parse("&7- &#2C74B3&" + entry.getCommand()));
+                    lore.add(MineDown.parse("&7- &#2C74B3&" + entry.command()));
                 }
             }
 

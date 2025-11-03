@@ -53,19 +53,19 @@ public class RewardsEditMenu extends PageableBlockMenu<MapGuiFiller> {
 
     public List<Reward> getEntries() {
         List<Reward> rewards = new ArrayList<>();
-        rewards.addAll(getBlock().getRewards().getLastRewards());
-        rewards.addAll(getBlock().getRewards().getRewards());
+        rewards.addAll(getBlock().getRewards().lastRewards());
+        rewards.addAll(getBlock().getRewards().rewards());
         return rewards;
     }
 
     public void removeReward(Reward reward) {
-        getBlock().getRewards().getLastRewards().remove(reward);
-        getBlock().getRewards().getRewards().remove(reward);
+        getBlock().getRewards().lastRewards().remove(reward);
+        getBlock().getRewards().rewards().remove(reward);
         saveAndUpdate();
     }
 
     public String getRewardName(String type) {
-        Set<String> names = getEntries().stream().map(Reward::getName).collect(Collectors.toUnmodifiableSet());
+        Set<String> names = getEntries().stream().map(Reward::name).collect(Collectors.toUnmodifiableSet());
         for (int i = 0; i < 1000; i++) {
             String n = i > 0 ? type + i : type;
             if (!names.contains(n)) return n;
@@ -75,8 +75,8 @@ public class RewardsEditMenu extends PageableBlockMenu<MapGuiFiller> {
 
     public void addReward(Reward reward) {
         if (reward.isLast()) {
-            getBlock().getRewards().getLastRewards().add(reward);
-        } else getBlock().getRewards().getRewards().add(reward);
+            getBlock().getRewards().lastRewards().add(reward);
+        } else getBlock().getRewards().rewards().add(reward);
     }
 
 }

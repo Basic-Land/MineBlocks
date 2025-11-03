@@ -88,17 +88,6 @@ public class MineBlocksPlugin extends JavaPlugin {
                 logInfo("Plugin is outdated! Current version is "+ s +", but the installed version is "+ pluginVersion + "! You can update using /mb update");
             }
         }));
-
-        Metrics metrics = new Metrics(this, 13178);
-
-        metrics.addCustomChart(new Metrics.SingleLineChart("blocks", () -> blockRegistry.getBlocks().size()));
-        metrics.addCustomChart(new Metrics.SimplePie("hologram_plugin", () -> {
-            HologramProvider hologramProvider = integrationManager.getHologramProvider();
-            if (hologramProvider instanceof Integration) {
-                return ((Integration) hologramProvider).getPluginName();
-            }
-            return null;
-        }));
     }
 
     @Override

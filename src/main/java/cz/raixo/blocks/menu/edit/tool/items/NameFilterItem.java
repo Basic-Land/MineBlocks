@@ -24,12 +24,12 @@ public class NameFilterItem extends BlockMenuItem {
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
         RequiredTool tool = ToolEditMenu.setToolIfNotPresent(getState());
-        if (itemClickEvent.getType().equals(ClickType.RIGHT)) {
+        if (itemClickEvent.type().equals(ClickType.RIGHT)) {
             tool.setNameDefault(tool.getNameDefault().getOther());
             BlockMenu<?> menu = getMenu();
             menu.saveAndUpdate();
         } else {
-            new NameFilterMenu(getState()).open(itemClickEvent.getPlayer());
+            new NameFilterMenu(getState()).open(itemClickEvent.player());
         }
     }
 

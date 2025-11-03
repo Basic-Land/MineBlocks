@@ -22,7 +22,7 @@ public class BackItem extends AbstractItem<Void> {
 
     @Override
     public void click(ItemClickEvent<Void> itemClickEvent) {
-        guiSupplier.get().open(itemClickEvent.getPlayer());
+        guiSupplier.get().open(itemClickEvent.player());
     }
 
     @Override

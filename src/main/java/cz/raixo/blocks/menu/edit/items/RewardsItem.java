@@ -22,13 +22,13 @@ public class RewardsItem  extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> itemClickEvent) {
-        new RewardsEditMenu(getState()).open(itemClickEvent.getPlayer());
+        new RewardsEditMenu(getState()).open(itemClickEvent.player());
     }
 
     @Override
     public ItemStack render(MineBlock state) {
         BlockRewards rewards = getState().getRewards();
-        int totalRewards = rewards.getRewards().size() + rewards.getLastRewards().size();
+        int totalRewards = rewards.rewards().size() + rewards.lastRewards().size();
         return ItemStackBuilder.create(Material.GOLD_NUGGET)
                 .withName(MineDown.parse("&#205295&&lRewards"))
                 .withLore(List.of(

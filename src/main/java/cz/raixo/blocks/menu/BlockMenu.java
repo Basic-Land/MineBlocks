@@ -9,6 +9,7 @@ import cz.raixo.blocks.gui.item.state.updater.StateUpdaterBuilder;
 import cz.raixo.blocks.gui.meta.GuiMeta;
 import cz.raixo.blocks.gui.type.InventoryType;
 import cz.raixo.blocks.util.color.Colors;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
@@ -18,6 +19,7 @@ import java.nio.file.Files;
 import java.time.Duration;
 import java.util.concurrent.Executor;
 
+@Getter
 public abstract class BlockMenu<T extends GuiFiller<T>> extends Gui<T> {
 
     private final MineBlock block;
@@ -38,14 +40,6 @@ public abstract class BlockMenu<T extends GuiFiller<T>> extends Gui<T> {
     public BlockMenu(T filler, Component title, InventoryType type, MineBlock block) {
         super(filler, title, type);
         this.block = block;
-    }
-
-    public MineBlock getBlock() {
-        return block;
-    }
-
-    public StateUpdater<MineBlock> getStateUpdater() {
-        return stateUpdater;
     }
 
     public void update() {

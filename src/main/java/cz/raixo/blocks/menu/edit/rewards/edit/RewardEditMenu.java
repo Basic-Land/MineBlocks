@@ -50,7 +50,7 @@ public class RewardEditMenu extends PageableBlockMenu<MapGuiFiller> {
     }
 
     public List<? extends RewardEntry> getEntries() {
-        return reward.getCommands().asList();
+        return reward.commands().asList();
     }
 
 }

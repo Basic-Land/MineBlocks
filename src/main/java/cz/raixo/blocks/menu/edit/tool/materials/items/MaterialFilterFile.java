@@ -31,13 +31,13 @@ public class MaterialFilterFile extends BlockMenuItem {
 
     @Override
     public void click(ItemClickEvent<MineBlock> event) {
-        int index = event.getSlot() + (menu.getPage() * menu.getPage());
+        int index = event.slot() + (menu.getPage() * menu.getPage());
         if (index < 0) return;
         List<cz.raixo.blocks.block.tool.material.MaterialFilter> materialFilters = Optional.of(getState().getRequiredTool()).map(RequiredTool::getMaterialFilters).orElseGet(ArrayList::new);
         if (index < materialFilters.size()) {
-            if (event.getType() == ClickType.LEFT) {
+            if (event.type() == ClickType.LEFT) {
                 materialFilters.remove(index);
-            } else if (event.getType() == ClickType.RIGHT) {
+            } else if (event.type() == ClickType.RIGHT) {
                 cz.raixo.blocks.block.tool.material.MaterialFilter materialFilter = materialFilters.get(index);
                 materialFilter.setResult(materialFilter.getResult().getOther());
             }

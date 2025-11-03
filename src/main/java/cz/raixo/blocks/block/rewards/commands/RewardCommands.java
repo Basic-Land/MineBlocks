@@ -12,12 +12,10 @@ import java.util.Optional;
 public interface RewardCommands<T extends RewardEntry> {
 
     static RewardCommands<? extends RewardEntry> parse(@Nullable String mode, List<String> commands) {
-        switch (Optional.ofNullable(mode).map(String::toLowerCase).orElse("")) {
-            case "all":
-                return new BatchRewardCommands(commands);
-            default:
-                return new RandomRewardCommands(commands);
+        if (Optional.ofNullable(mode).map(String::toLowerCase).orElse("").equals("all")) {
+            return new BatchRewardCommands(commands);
         }
+        return new RandomRewardCommands(commands);
     }
 
     List<T> asList();

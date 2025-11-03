@@ -6,7 +6,7 @@ import cz.raixo.blocks.util.NumberUtil;
 
 public class IntervalCondition implements BreakCondition {
 
-    private int value;
+    private final int value;
 
     public IntervalCondition(String value) {
         this.value = NumberUtil.parseInt(value)

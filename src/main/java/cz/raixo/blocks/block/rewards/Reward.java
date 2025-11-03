@@ -21,17 +21,17 @@ public interface Reward {
     static void save(ConfigurationSection section, Reward reward) {
         RewardType type = reward.getType();
         section.set("type", type.name().toLowerCase());
-        section.set("mode", reward.getCommands().getModeName());
+        section.set("mode", reward.commands().getModeName());
         type.set(section, reward);
     }
 
-    String getName();
+    String name();
     RewardType getType();
     /**
      * @param context If the block is not fully broken, partial reward context is supplied
      * */
     boolean canGet(PlayerData player, RewardContext context);
     boolean isLast();
-    RewardCommands<? extends RewardEntry> getCommands();
+    RewardCommands<? extends RewardEntry> commands();
 
 }
